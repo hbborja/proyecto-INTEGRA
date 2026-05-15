@@ -11,35 +11,35 @@
     <div class="grid-container">   
         <header class="item-header">
             <img src="../../assets/img/modulo.png" class="logo-circular" alt="Logo Nómina">
-            <h1>Sistema de Gestión de Nómina</h1>
+            <h1>Módulo Contabilidad</h1>
         </header>
 
         <nav class="item-menu">
             <h3>Navegación</h3>
             <ul class="menu-lista">
         <li>
-            <a href="empleados.html" class="menu-link activo">
-                <i class="fas fa-users"></i> Empleados
+            <a href="tipo_cuenta.html" class="menu-link activo">
+                <i class="fas fa-sitemap"></i>Tipo de cuenta
             </a>
         </li>
         <li>
-            <a href="motivos.html" class="menu-link">
-                <i class="fas fa-clipboard-list"></i> Motivos Ingreso/Egreso
+            <a href="cuenta.html" class="menu-link">
+                <i class="fas fa-file-invoice"></i> Cuenta
             </a>
         </li>
         <li>
-            <a href="gestion_nomina.html" class="menu-link">
-                <i class="fas fa-file-invoice-dollar"></i> Gestión de Nómina
+            <a href="comprobante.html" class="menu-link">
+               <i class="fas fa-receipt"></i> Comprobante de Contabilidad
             </a>
         </li>
         <li>
-            <a href="reporte_valores.html" class="menu-link">
-                <i class="fas fa-hand-holding-usd"></i> Valores a Pagar
+            <a href="balance.html" class="menu-link">
+                <i class="fas fa-balance-scale"></i> Balance General
             </a>
         </li>
         <li>
-            <a href="reporte_cruzado.html" class="menu-link">
-                <i class="fas fa-random"></i> Reporte Cruzado
+            <a href="estado_resultados.html" class="menu-link">
+                <i class="fas fa-file-invoice-dollar"></i>  Estado de Resultados
             </a>
         </li>
     </ul>
@@ -47,49 +47,45 @@
 
         <main class="item-main">
             <div class="form-box">
-                <h2>Registro de Empleados</h2>
+                <h2>Registro de Tipo de Cuenta</h2>
                 <form action="#modalInsertar">
-                    <label for="cedula">Cédula de Identidad:</label>
-                    <input type="text" id="cedula" placeholder="10 dígitos numéricos" required pattern="\d{10}" title="Debe ingresar 10 números exactos">
+                    <label for="codigo">Codigo:</label>
+                    <input type="text" id="codigo" maxlength="6" placeholder="6 dígitos numéricos" required pattern="\d{6}" title="Debe ingresar 6 números exactos">
 
-                    <label for="nombre_emp">Nombre Completo:</label>
-                    <input type="text" id="nombre_emp" placeholder="Nombres y Apellidos" required>
-
-                    <label for="fecha_ingreso">Fecha de Ingreso:</label>
-                    <input type="date" id="fecha_ingreso" class="select-estilizado" required>
-
-                    <label for="sueldo">Sueldo Base ($):</label>
-                    <input type="number" id="sueldo" class="select-estilizado" min="0" step="0.01" placeholder="Ej. 460.00" required>
-
-                    <div class="botones-crud">
-                        <button type="submit" class="btn btn-insertar" style="width: 100%;">Insertar Empleado</button>
-                    </div>
+                     <label for="nombre">Nombre:</label>
+                     <select id="nombre" class="select-estilizado" required >
+                        <option value="" disabled selected>Seleccione una categoría...</option>
+                        <option value="Activo">Activo</option>
+                        <option value="Pasivo">Pasivo</option>
+                        <option value="Patrimonio">Patrimonio / Capital</option>
+                        <option value="Ingreso">Ingreso</option>
+                        <option value="Egreso">Egreso / Gasto</option>
+                      </select>
+                       <div class="botones-crud">
+                          <button type="submit" class="btn btn-insertar">Insertar Tipo de Cuenta</button>
+                       </div>
                 </form>
             </div>
         </main>
 
         <section class="item-tabla">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <h3>Nómina de Empleados</h3>
-                <input type="text" placeholder="Buscar empleado..." style="width: 300px; padding: 8px; border-radius: 5px; border: 1px solid #ccc;">
-            </div>
+             <div class="buscador-wrapper">
+                  <i class="fas fa-search buscador-icono"></i>
+                  <input type="text" placeholder="Buscar tipo de cuenta..." class="input-busqueda">
+             </div>
             
             <table>
                 <thead>
                     <tr>
-                        <th>Cédula</th>
+                        <th>Código</th>
                         <th>Nombre</th>
-                        <th>Fecha Ingreso</th>
-                        <th>Sueldo</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>1712345678</td>
-                        <td>Alexander Jácome</td>
-                        <td>2024-01-15</td>
-                        <td>$ 850.00</td>
+                        <td>171233</td>
+                        <td>Activo</td>
                         <td class="acciones-tabla">
                             <a href="#modalDetalles" class="btn-tabla btn-detalles"><i class="fas fa-eye"></i> Ver detalles</a>
                             <a href="#modalActualizar" class="btn-tabla btn-actualizar"><i class="fas fa-sync-alt"></i> Actualizar</a>
@@ -98,10 +94,9 @@
                     </tr>
 
                                         <tr>
-                        <td>1712345678</td>
-                        <td>Flor</td>
-                        <td>2024-01-15</td>
-                        <td>$ 850.00</td>
+                        <td>122345</td>
+                        <td>Capital</td>
+                        
                         <td class="acciones-tabla">
                             <a href="#modalDetalles" class="btn-tabla btn-detalles"><i class="fas fa-eye"></i> Ver detalles</a>
                             <a href="#modalActualizar" class="btn-tabla btn-actualizar"><i class="fas fa-sync-alt"></i> Actualizar</a>
@@ -119,7 +114,7 @@
     </div> <div id="modalEliminar" class="modal">
         <div class="modal-body">
             <h2>Confirmar Eliminación</h2>
-            <p>¿Está seguro de que desea eliminar a este empleado? Esta acción no se puede deshacer.</p>
+            <p>¿Está seguro de que desea eliminar a este tipo de cuenta? Esta acción no se puede deshacer.</p>
             <div class="modal-botones">
                 <a href="#" class="btn btn-cancelar">Cancelar</a>
                 <button type="submit" class="btn btn-eliminar-confirmar">Aceptar</button>
@@ -141,7 +136,7 @@
     <div id="modalInsertar" class="modal">
         <div class="modal-body">
             <h2>Registro Exitoso</h2>
-            <p>El empleado ha sido guardado correctamente en la base de datos.</p>
+            <p>El tipo de cuenta ha sido guardado correctamente en la base de datos.</p>
             <div class="modal-botones">
                 <a href="#" class="btn btn-actualizar-confirmar">Aceptar</a>
             </div>
@@ -150,8 +145,8 @@
 
     <div id="modalDetalles" class="modal">
         <div class="modal-body">
-            <h2>Detalles del Empleado</h2>
-            <p>Cédula: 1712345678<br>Nombre: Alexander Jácome<br>Ingreso: 2024-01-15<br>Sueldo: $850.00</p>
+            <h2>Detalles del Tipo de Cuenta</h2>
+            <p>Código: 171233<br>Nombre: Activo</p>
             <div class="modal-botones">
                 <a href="#" class="btn btn-actualizar-confirmar">Cerrar</a>
             </div>

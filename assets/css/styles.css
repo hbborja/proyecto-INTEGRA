@@ -53,7 +53,7 @@ body {
     border: 5px solid black;
 }
 
-/* Estilos del Formulario */
+/* Estilos del Formulario Contabilidad*/
 input[type=text], input[type=date], input[type=number], .select-estilizado {
     width: 100%;
     padding: 12px;
@@ -61,6 +61,21 @@ input[type=text], input[type=date], input[type=number], .select-estilizado {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+/*Ancho del formulario y centrado*/
+.form-box {
+    max-width: 600px; /* Centra y limita el ancho del formulario */
+    margin: 0 auto;
+}
+
+/* Para el boton insertar m.contabilidad y otros modulos*/
+.botones-crud {
+    display: flex;         /* Activa el modo caja flexible */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    margin-top: 20px;      /* Espacio superior para que no pegue con el select */
+    width: 100%;           /* El contenedor sí ocupa todo el ancho */
+}
+
+
 
 /* Botones Generales */
 .btn {
@@ -163,6 +178,37 @@ tr:hover {background-color: rgb(226, 224, 224);}
     font-weight: normal;
     border: none;
     cursor: pointer;
+}
+
+/* Contenedor relativo para posicionar el ícono */
+.buscador-wrapper {
+    position: relative;
+    width: 300px;
+}
+
+/* Estilo del input */
+.input-busqueda {
+    width: 100%;
+    padding: 10px 10px 10px 250px; /* Espacio extra a la izquierda para el ícono */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.input-busqueda:focus {
+    border-color: var(--color-principal);
+    box-shadow: 0 0 5px rgba(103, 103, 236, 0.2);
+}
+
+/* Estilo del ícono de lupa */
+.buscador-icono {
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%); /* Centra el ícono verticalmente */
+    color: #888;
+    pointer-events: none; /* Hace que el clic pase a través del ícono al input */
 }
 
 .btn-detalles { background-color: var(--color-detalles); }
