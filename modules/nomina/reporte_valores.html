@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nómina - Valores a Pagar</title>
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="grid-container">
+        <header class="item-header">
+            <img src="/img/logo.jpg" class="logo-circular" alt="Logo Nómina">
+            <h1>Sistema de Gestión de Nómina</h1>
+        </header>
+
+        <nav class="item-menu">
+            <h3>Navegación</h3>
+            <ul class="menu-lista">
+                <li><a href="empleados.html" class="menu-link"><i class="fas fa-users"></i> Empleados</a></li>
+                <li><a href="motivos.html" class="menu-link"><i class="fas fa-clipboard-list"></i> Motivos Ingreso/Egreso</a></li>
+                <li><a href="gestion_nomina.html" class="menu-link"><i class="fas fa-file-invoice-dollar"></i> Gestión de Nómina</a></li>
+                <li><a href="reporte_valores.html" class="menu-link activo"><i class="fas fa-hand-holding-usd"></i> Valores a Pagar</a></li>
+                <li><a href="reporte_cruzado.html" class="menu-link"><i class="fas fa-random"></i> Reporte Cruzado</a></li>
+            </ul>
+        </nav>
+
+        <main class="item-main">
+            <div class="form-box no-print">
+                <h2>Filtros: Valores a Pagar</h2>
+                <div style="display: flex; gap: 15px; align-items: end;">
+                    <div style="flex: 1;">
+                        <label>Fecha Inicio:</label>
+                        <input type="date" class="select-estilizado">
+                    </div>
+                    <div style="flex: 1;">
+                        <label>Fecha Fin:</label>
+                        <input type="date" class="select-estilizado">
+                    </div>
+                    <div style="flex: 1; padding-bottom: 10px; display: flex; gap: 10px;">
+                        <button class="btn btn-detalles"><i class="fas fa-filter"></i> Generar</button>
+                        <button onclick="window.print()" class="btn btn-actualizar" style="background-color: #333;"><i class="fas fa-print"></i> Imprimir</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <section class="item-tabla">
+            <h3 style="text-align: center;">Reporte de Valores a Pagar</h3>
+            <p style="text-align: center; color: gray;">Periodo: Mayo 2026</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre del Empleado</th>
+                        <th>Cédula</th>
+                        <th style="text-align: right;">Valor Neto ($)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Alexander Jácome</td>
+                        <td>1712345678</td>
+                        <td style="text-align: right;">$ 769.68</td>
+                    </tr>
+                    <tr>
+                        <td>Flor San Lucas</td>
+                        <td>1712345679</td>
+                        <td style="text-align: right;">$ 820.00</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr style="background-color: #f2f2f2;">
+                        <td colspan="2" style="text-align: right; font-weight: bold;">TOTAL:</td>
+                        <td style="text-align: right; font-weight: bold;">$ 1,589.68</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
+
+        <footer class="item-footer">
+            <p>Nómina - Alexander Jácome | Quito, 2026</p>
+        </footer>
+    </div>
+</body>
+</html>
