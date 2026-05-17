@@ -75,8 +75,6 @@ input[type=text], input[type=date], input[type=number], .select-estilizado {
     width: 100%;           /* El contenedor sí ocupa todo el ancho */
 }
 
-
-
 /* Botones Generales */
 .btn {
     padding: 10px 15px;
@@ -294,4 +292,268 @@ tr:hover {background-color: rgb(226, 224, 224);}
     display: block;
     margin-top: 20px;
     text-decoration: none;
+}
+
+
+/* MODULO CONTABILIDAD COMPROBANTE*/
+.seccion-comprobante {
+    background-color: #f9fbfd;
+    border: 1px solid #e3e8ee;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.seccion-comprobante h3 {
+    margin-top: 0;
+    color: rgb(28, 40, 131);
+    font-size: 1.1rem;
+    border-bottom: 2px solid #e3e8ee;
+    padding-bottom: 5px;
+}
+
+/* Distribución para la cabecera */
+.grid-cabecera {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    width: 100%;
+}
+
+/* Distribución de los inputs de las líneas de detalle */
+.grid-detalle-inputs {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+    align-items: center;
+}
+
+/* Tabla temporal donde se acumulan los débitos y créditos */
+.tabla-asiento-temporal {
+    width: 100%;
+    margin-top: 15px;
+    border-collapse: collapse;
+    background: #ffffff;
+}
+
+.tabla-asiento-temporal th {
+    background-color: #f1f3f5;
+    color: #495057;
+    font-size: 0.9rem;
+    padding: 8px;
+}
+
+.tabla-asiento-temporal td {
+    padding: 8px;
+    font-size: 0.9rem;
+    border-bottom: 1px dashed #dee2e6;
+}
+
+/* Fila de sumas totales */
+.fila-totales {
+    background-color: #e9ecef;
+    font-weight: bold;
+    color: #212529;
+}
+
+/* Letrero de validación cuadrada */
+.alerta-cuadrado {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+/* Contenedor principal del encabezado de la tabla */
+.tabla-header-contabilidad {
+    display: flex;
+    justify-content: space-between; /* <- ESTO ES LA CLAVE: empuja el buscador a la derecha */
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%; /* Asegura que ocupe todo el espacio disponible */
+}
+
+/* ==========================================================================
+   Estilos  para Reporte de Balance General 
+   ========================================================================== */
+
+.reporte-container {
+    width: 100%;
+    background-color: #fff;
+    padding: 10px;
+}
+
+/* Cabecera del Reporte */
+.reporte-header {
+    text-align: center;
+    margin-bottom: 25px;
+    border-bottom: 3px double #333;
+    padding-bottom: 15px;
+}
+
+.reporte-header h2 {
+    margin: 0;
+    color: rgb(28, 40, 131);
+    letter-spacing: 1px;
+}
+
+.empresa-nombre {
+    font-weight: bold;
+    margin: 5px 0;
+    font-size: 1.1rem;
+}
+
+.reporte-fecha {
+    font-style: italic;
+    color: #666;
+    margin: 0;
+}
+
+/* Filas de Cuentas por Niveles Jerárquicos */
+.cuenta-fila {
+    display: flex;
+    padding: 8px 10px;
+    align-items: center;
+    border-bottom: 1px solid #f1f3f5;
+}
+
+.codigo-rep {
+    width: 80px;
+    font-family: monospace;
+    font-size: 1rem;
+    color: #495057;
+}
+
+.nombre-rep {
+    flex-grow: 1; /* Hace que el nombre ocupe el espacio del centro */
+}
+
+.valor-rep {
+    font-weight: bold;
+    text-align: right;
+    width: 120px;
+}
+
+/* Identación por niveles usando multiplicidad de sangría */
+.nivel-1 {
+    font-weight: bold;
+    background-color: #f8f9fa;
+    font-size: 1.05rem;
+    border-left: 5px solid rgb(28, 40, 131);
+}
+
+.nivel-2 {
+    font-weight: 600;
+    padding-left: 30px; /* Nivel intermedio */
+    color: #333;
+}
+
+.nivel-3 {
+    font-weight: normal;
+    padding-left: 60px; /* Nivel hoja/detalle */
+    color: #555;
+}
+
+.separador-reporte {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+    margin: 15px 0;
+}
+
+/* Sección de Validación Final de la Ecuación */
+.reporte-cuadre {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #eef2f7;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #ced4da;
+}
+
+.cuadre-item {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 45%;
+}
+
+.cuadre-item span {
+    font-size: 0.85rem;
+    color: #6c757d;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.cuadre-item strong {
+    font-size: 1.3rem;
+    color: rgb(28, 40, 131);
+}
+
+.cuadre-signo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #495057;
+}
+
+.estado-cuadre-exito {
+    text-align: center;
+    background-color: #d4edda;
+    color: #155724;
+    padding: 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+
+/* ==========================================================================
+   Adiciones para el Reporte de Estado de Resultados
+   ========================================================================== */
+
+/* Coloración suave para identificar visualmente que los egresos restan */
+.egreso-color {
+    border-left: 5px solid var(--color-eliminar-tabla) !important;
+}
+
+/* Bloque contenedor de la Utilidad Neta */
+.reporte-utilidad {
+    margin-top: 25px;
+    background-color: #d4edda; /* Verde claro indicando ganancias */
+    border: 2px solid #c3e6cb;
+    padding: 15px 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+/* Si en algún período da pérdida, podrías usar una clase alternativa con background #f8d7da */
+
+.utilidad-bloque {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.utilidad-titulo {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #155724;
+    letter-spacing: 0.5px;
+}
+
+.utilidad-valor {
+    font-weight: 900;
+    font-size: 1.4rem;
+    color: #155724;
+    font-family: monospace;
 }

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contabilidad - Balance General</title>
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="grid-container">   
+        <header class="item-header">
+            <img src="../../assets/img/modulo.png" class="logo-circular" alt="Logo Módulo">
+            <h1>Módulo Contabilidad</h1>
+        </header>
+
+        <nav class="item-menu">
+            <h3>Navegación</h3>
+            <ul class="menu-lista">
+                <li>
+                    <a href="index.html" class="menu-link">
+                        <i class="fas fa-sitemap"></i>Tipo de cuenta
+                    </a>
+                </li>
+                <li>
+                    <a href="cuenta.html" class="menu-link">
+                        <i class="fas fa-file-invoice"></i> Cuenta
+                    </a>
+                </li>
+                <li>
+                    <a href="comprobante.html" class="menu-link">
+                       <i class="fas fa-receipt"></i> Comprobante de Contabilidad
+                    </a>
+                </li>
+                <li>
+                    <a href="balance.html" class="menu-link activo">
+                        <i class="fas fa-balance-scale"></i> Balance General
+                    </a>
+                </li>
+                <li>
+                    <a href="estado_resultados.html" class="menu-link">
+                        <i class="fas fa-file-invoice-dollar"></i>  Estado de Resultados
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <main class="item-main">
+            <div class="reporte-container">
+                <div class="reporte-header">
+                    <h2>BALANCE GENERAL</h2>
+                    <p class="empresa-nombre">EMPRESA PROYECTOINTEGRA S.A.</p>
+                    <p class="reporte-fecha">Al 19 de Mayo de 2026</p>
+                </div>
+
+                <div class="reporte-cuerpo">
+                    <div class="cuenta-fila nivel-1">
+                        <span class="codigo-rep">1</span>
+                        <span class="nombre-rep">ACTIVO</span>
+                        <span class="valor-rep">$ 15,400.00</span>
+                    </div>
+                    <div class="cuenta-fila nivel-2">
+                        <span class="codigo-rep">1.1</span>
+                        <span class="nombre-rep">ACTIVO CORRIENTE</span>
+                        <span class="valor-rep">$ 10,400.00</span>
+                    </div>
+                    <div class="cuenta-fila nivel-3">
+                        <span class="codigo-rep">1.1.1</span>
+                        <span class="nombre-rep">Caja General y Bancos</span>
+                        <span class="valor-rep">$ 10,400.00</span>
+                    </div>
+                    <div class="cuenta-fila nivel-2">
+                        <span class="codigo-rep">1.2</span>
+                        <span class="nombre-rep">ACTIVO NO CORRIENTE</span>
+                        <span class="valor-rep">$ 5,000.00</span>
+                    </div>
+                    <div class="cuenta-fila nivel-3">
+                        <span class="codigo-rep">1.2.1</span>
+                        <span class="nombre-rep">Propiedades, Planta y Equipo</span>
+                        <span class="valor-rep">$ 5,000.00</span>
+                    </div>
+
+                    <hr class="separador-reporte">
+
+                    <div class="cuenta-fila nivel-1">
+                        <span class="codigo-rep">2</span>
+                        <span class="nombre-rep">PASIVO</span>
+                        <span class="valor-rep">$ 6,200.00</span>
+                    </div>
+                    <div class="cuenta-fila nivel-2">
+                        <span class="codigo-rep">2.1</span>
+                        <span class="nombre-rep">PASIVO CORRIENTE</span>
+                        <span class="valor-rep">$ 6,200.00</span>
+                    </div>
+                    <div class="cuenta-fila nivel-3">
+                        <span class="codigo-rep">2.1.1</span>
+                        <span class="nombre-rep">Cuentas por Pagar Comerciales</span>
+                        <span class="valor-rep">$ 6,200.00</span>
+                    </div>
+
+                    <hr class="separador-reporte">
+
+                    <div class="cuenta-fila nivel-1">
+                        <span class="codigo-rep">3</span>
+                        <span class="nombre-rep">PATRIMONIO / CAPITAL</span>
+                        <span class="valor-rep">$ 9,200.00</span>
+                    </div>
+                    <div class="cuenta-fila nivel-2">
+                        <span class="codigo-rep">3.1</span>
+                        <span class="nombre-rep">CAPITAL CONTABLE</span>
+                        <span class="valor-rep">$ 9,200.00</span>
+                    </div>
+                    <div class="cuenta-fila nivel-3">
+                        <span class="codigo-rep">3.1.1</span>
+                        <span class="nombre-rep">Capital Suscrito y Pagado</span>
+                        <span class="valor-rep">$ 9,200.00</span>
+                    </div>
+                </div>
+
+                <div class="reporte-cuadre">
+                    <div class="cuadre-item">
+                        <span>TOTAL ACTIVO</span>
+                        <strong>$ 15,400.00</strong>
+                    </div>
+                    <div class="cuadre-signo">=</div>
+                    <div class="cuadre-item">
+                        <span>TOTAL PASIVO + PATRIMONIO</span>
+                        <strong>$ 15,400.00</strong>
+                    </div>
+                </div>
+                
+                <p class="estado-cuadre-exito">
+                    <i class="fas fa-check-double"></i> El balance cuadra correctamente (Diferencia: $0.00)
+                </p>
+            </div>
+        </main>
+
+        <section class="item-tabla">
+            <div class="tabla-header-contabilidad">
+                <h3>Historial de Balances Emitidos</h3>
+                <div class="buscador-wrapper">
+                    <i class="fas fa-search buscador-icono"></i>
+                    <input type="text" placeholder="    Buscar período..." class="input-busqueda">
+                </div>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Período Contable</th>
+                        <th>Total Activos</th>
+                        <th>Total Pasivo + Pat.</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Mayo 2026 (Actual)</td>
+                        <td>$ 15,400.00</td>
+                        <td>$ 15,400.00</td>
+                        <td><span style="color: green; font-weight: bold;">Cuadrado</span></td>
+                        <td class="acciones-tabla">
+                            <button class="btn-tabla btn-detalles"><i class="fas fa-print"></i> Imprimir</button>
+                            <button class="btn-tabla btn-actualizar"><i class="fas fa-file-pdf"></i> Exportar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Año Fiscal 2025</td>
+                        <td>$ 45,800.00</td>
+                        <td>$ 45,800.00</td>
+                        <td><span style="color: gray;">Cerrado</span></td>
+                        <td class="acciones-tabla">
+                            <button class="btn-tabla btn-detalles"><i class="fas fa-print"></i> Imprimir</button>
+                            <button class="btn-tabla btn-actualizar"><i class="fas fa-file-pdf"></i> Exportar</button>
+                        </td>
+                    </tr>
+                </tbody>        
+            </table>
+        </section> 
+        
+        <footer class="item-footer">
+            <p>Contabilidad - Luis Pozo  | Quito, 2026</p>
+        </footer>
+    </div>
+</body>
+</html>
