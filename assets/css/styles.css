@@ -6,6 +6,9 @@
     --color-blanco: white;
     --color-detalles: #00c0ef;
     --color-insertar: #00a65a;
+    --color-modificar: #f39c12;
+    --color-buscar: #1737ec;
+    --color-eliminar: #e74c3c;
     --color-eliminar-tabla: #dd4b39;
 }
 
@@ -36,11 +39,153 @@ body {
 .item-menu { grid-area: menu ;color: white; background-color: rgb(28, 40, 131) ; padding: 20px;}
 .item-main { grid-area: main; background-color: white ; padding: 20px;}
 .item-tabla { grid-area: tabla; background-color: white ; padding: 20px;}
-.item-footer { grid-area: footer ; background-color: rgb(66, 66, 66) ; padding: 20px; color: white; text-align: center;}
+.item-footer { grid-area: footer ;background-color: rgb(66, 66, 66) ; padding: 20px; color: white; text-align: center;}
 
 .item-header, .item-menu, .item-main, .item-tabla, .item-footer {
     border-radius: 10px; /* Ajusta este número: 8px es sutil, 15px es muy curvo */
     box-shadow: 0 4px 6px rgba(0,0,0,0.05); /* Opcional: un sombreado suave que queda genial con bordes curvos */
+}
+
+/* 3. Página de login */
+.page-layout {
+    min-height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.login-panel,
+.promo-panel {
+    width: 50%;
+    min-width: 360px;
+    padding: 40px;
+    box-sizing: border-box;
+    border: 2px solid var(--color-insertar);
+}
+
+.login-panel {
+    border: 2px solid var(--color-insertar);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #f8fbff;
+}
+
+.promo-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: linear-gradient(135deg, #4356d8, #7185f9);
+    color: white;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-header h1 {
+    margin: 0;
+    font-size: 2.6rem;
+    color: #1c2868;
+}
+
+.login-header p {
+    margin-top: 8px;
+    color: #556c89;
+    line-height: 1.6;
+}
+
+.login-form {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.login-form label {
+    font-weight: bold;
+    color: #1c2868;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    background-color: #f8fafc;
+}
+
+.full-width-btn {
+    width: 100%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 44px;
+    border-radius: 12px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.small-text {
+    color: #5b6a82;
+    font-size: 0.95rem;
+    margin-top: 10px;
+}
+
+.link-primary {
+    color: var(--color-principal);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.link-primary:hover {
+    text-decoration: underline;
+}
+
+.project-logo {
+    border-radius: 18px;
+    object-fit: contain;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    margin-bottom: 24px;
+}
+
+.project-brand {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 28px;
+    max-width: 520px;
+}
+
+.module-summary {
+    display: grid;
+    gap: 18px;
+    margin-top: 10px;
+}
+
+.module-card-summary {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    padding: 22px;
+    border-radius: 18px;
+}
+
+.module-card-summary strong {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.05rem;
+}
+
+@media (max-width: 980px) {
+    .login-panel,
+    .promo-panel {
+        width: 100%;
+    }
 }
 
 /* 3. Componentes del Sistema */
@@ -556,4 +701,38 @@ tr:hover {background-color: rgb(226, 224, 224);}
     font-size: 1.4rem;
     color: #155724;
     font-family: monospace;
+}
+
+/* ==========================================================================
+   Estilos Menú Global Superior
+   ========================================================================== */
+
+.btn-nav-global {
+    background-color: transparent;
+    color: rgb(28, 40, 131);
+    font-weight: 600;
+    padding: 8px 15px;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid transparent; 
+}
+
+.btn-nav-global:hover {
+    background-color: rgba(28, 40, 131, 0.1);
+    border: 1px solid rgba(28, 40, 131, 0.2);
+}
+
+.btn-nav-global.activo {
+    background-color: rgb(28, 40, 131);
+    color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.btn-nav-global.activo:hover {
+    background-color: rgb(20, 28, 92);
+    border-color: transparent;
 }

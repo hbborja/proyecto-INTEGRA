@@ -9,9 +9,21 @@
 </head>
 <body>
     <div class="grid-container">
-        <header class="item-header">
-            <img src="../../img/logo_nomina.jpg" class="logo-circular" alt="Logo Nómina">
-            <h1>Sistema de Gestión de Nómina</h1>
+        <header class="item-header" style="justify-content: space-between; align-items: center; display: flex; flex-wrap: wrap; gap: 15px;">
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <img src="../../img/logo_nomina.jpg" class="logo-circular" alt="Logo Nómina">
+                <h1 style="margin: 0; font-size: 1.8rem; color: rgb(28, 40, 131);">Sistema de Gestión de Nómina</h1>
+            </div>
+            
+            <nav style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                <div style="background: rgba(28, 40, 131, 0.05); padding: 5px; border-radius: 8px; display: flex; gap: 5px; border: 1px solid rgba(28, 40, 131, 0.1);">
+                    <a href="../nomina/index.html" class="btn-nav-global activo"><i class="fas fa-users"></i> Nómina</a>
+                    <a href="../contabilidad/index.html" class="btn-nav-global"><i class="fas fa-calculator"></i> Contabilidad</a>
+                    <a href="../mantenimiento/index.html" class="btn-nav-global"><i class="fas fa-tools"></i> Mantenimiento</a>
+                    <a href="../biblioteca/index.html" class="btn-nav-global"><i class="fas fa-book"></i> Biblioteca</a>
+                </div>
+                <a href="../../index.html" class="btn btn-eliminar-tabla" style="padding: 10px 20px; border-radius: 8px; display: flex; align-items: center; gap: 8px;"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+            </nav>
         </header>
 
         <nav class="item-menu">

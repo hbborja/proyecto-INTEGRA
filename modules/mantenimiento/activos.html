@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nómina - Empleados</title>
+    <title>Mantenimiento - Activos</title>
     <link rel="stylesheet" href="../../assets/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -11,16 +11,16 @@
     <div class="grid-container">   
         <header class="item-header" style="justify-content: space-between; align-items: center; display: flex; flex-wrap: wrap; gap: 15px;">
             <div style="display: flex; align-items: center; gap: 20px;">
-                <img src="../../assets/img/logo_nomina.png" class="logo-circular" alt="Logo Nómina">
-                <h1 style="margin: 0; font-size: 1.8rem; color: rgb(28, 40, 131);">Sistema de Gestión de Nómina</h1>
+                <img src="../../assets/img/modulo_mantenimiento.jpg" class="logo-circular" alt="Logo Mantenimiento">
+                <h1 style="margin: 0; font-size: 1.8rem; color: rgb(28, 40, 131);">Sistema de Mantenimiento</h1>
             </div>
             
             <nav style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
                 <div style="background: rgba(28, 40, 131, 0.05); padding: 5px; border-radius: 8px; display: flex; gap: 5px; border: 1px solid rgba(28, 40, 131, 0.1);">
-                    <a href="../nomina/index.html" class="btn-nav-global activo"><i class="fas fa-users"></i> Nómina</a>
-                    <a href="../contabilidad/index.html" class="btn-nav-global"><i class="fas fa-calculator"></i> Contabilidad</a>
-                    <a href="../mantenimiento/index.html" class="btn-nav-global"><i class="fas fa-tools"></i> Mantenimiento</a>
-                    <a href="../biblioteca/index.html" class="btn-nav-global"><i class="fas fa-book"></i> Biblioteca</a>
+                    <a href="../nomina/index.html" class="btn" style="background-color: transparent; color: rgb(28, 40, 131); font-weight: 600; padding: 8px 15px; transition: 0.3s;"><i class="fas fa-users"></i> Nómina</a>
+                    <a href="../contabilidad/index.html" class="btn" style="background-color: transparent; color: rgb(28, 40, 131); font-weight: 600; padding: 8px 15px; transition: 0.3s;"><i class="fas fa-calculator"></i> Contabilidad</a>
+                    <a href="../mantenimiento/index.html" class="btn" style="background-color: rgb(28, 40, 131); color: white; font-weight: 600; padding: 8px 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"><i class="fas fa-tools"></i> Mantenimiento</a>
+                    <a href="../biblioteca/index.html" class="btn" style="background-color: transparent; color: rgb(28, 40, 131); font-weight: 600; padding: 8px 15px; transition: 0.3s;"><i class="fas fa-book"></i> Biblioteca</a>
                 </div>
                 <a href="../../index.html" class="btn btn-eliminar-tabla" style="padding: 10px 20px; border-radius: 8px; display: flex; align-items: center; gap: 8px;"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
             </nav>
@@ -29,32 +29,29 @@
         <nav class="item-menu">
             <h3>Navegación</h3>
             <ul class="menu-lista">
-                <li><a href="index.html" class="menu-link activo"><i class="fas fa-users"></i> Empleados</a></li>
-                <li><a href="motivos.html" class="menu-link"><i class="fas fa-clipboard-list"></i> Motivos Ingreso/Egreso</a></li>
-                <li><a href="gestion_nomina.html" class="menu-link"><i class="fas fa-file-invoice-dollar"></i> Gestión de Nómina</a></li>
-                <li><a href="reporte_valores.html" class="menu-link"><i class="fas fa-hand-holding-usd"></i> Valores a Pagar</a></li>
-                <li><a href="reporte_cruzado.html" class="menu-link"><i class="fas fa-random"></i> Reporte Cruzado</a></li>
+                <li><a href="index.html" class="menu-link"><i class="fas fa-tools"></i> Actividades</a></li>
+                <li><a href="activos.html" class="menu-link activo"><i class="fas fa-box"></i> Activos</a></li>
+                <li><a href="mantenimiento.html" class="menu-link"><i class="fas fa-clipboard-check"></i> Gestión de Mantenimiento</a></li>
+                <li><a href="reporte_valores.html" class="menu-link"><i class="fas fa-chart-bar"></i> Valores por Activo</a></li>
+                <li><a href="reporte_cruzado.html" class="menu-link"><i class="fas fa-table"></i> Reporte Cruzado</a></li>
             </ul>
         </nav>
 
         <main class="item-main">
             <div class="form-box">
-                <h2>Registro de Empleados</h2>
+                <h2>Registro de Activos</h2>
                 <form action="#modalInsertar">
-                    <label for="cedula">Cédula de Identidad:</label>
-                    <input type="text" id="cedula" placeholder="10 dígitos numéricos" required pattern="\d{10}" title="Debe ingresar 10 números exactos">
+                    <label for="codigo_activo">Código del Activo:</label>
+                    <input type="text" id="codigo_activo" placeholder="Ej. ACT-001" required>
 
-                    <label for="nombre_emp">Nombre Completo:</label>
-                    <input type="text" id="nombre_emp" placeholder="Nombres y Apellidos" required>
+                    <label for="nombre_activo">Nombre del Activo:</label>
+                    <input type="text" id="nombre_activo" placeholder="Ej. Máquina Ensambladora" required>
 
-                    <label for="fecha_ingreso">Fecha de Ingreso:</label>
-                    <input type="date" id="fecha_ingreso" class="select-estilizado" required>
-
-                    <label for="sueldo">Sueldo Base ($):</label>
-                    <input type="number" id="sueldo" class="select-estilizado" min="0" step="0.01" placeholder="Ej. 460.00" required>
+                    <label for="fecha_compra">Fecha de Compra:</label>
+                    <input type="date" id="fecha_compra" class="select-estilizado" required>
 
                     <div class="botones-crud">
-                        <button type="submit" class="btn btn-insertar" style="width: 100%;">Insertar Empleado</button>
+                        <button type="submit" class="btn btn-insertar" style="width: 100%;">Insertar Activo</button>
                     </div>
                 </form>
             </div>
@@ -62,42 +59,37 @@
 
         <section class="item-tabla">
             <div style="display: flex; justify-content: space-between; align-items: center;">
-                <h3>Nómina de Empleados</h3>
+                <h3>Lista de Activos</h3>
                 <div class="buscador-wrapper">
                   <i class="fas fa-search buscador-icono"></i>
-                  <input type="text" placeholder="    Buscar empleado..." class="input-busqueda">
+                  <input type="text" placeholder="    Buscar activo..." class="input-busqueda">
                 </div>
             </div>
             
             <table>
                 <thead>
                     <tr>
-                        <th>Cédula</th>
+                        <th>Código</th>
                         <th>Nombre</th>
-                        <th>Fecha Ingreso</th>
-                        <th>Sueldo</th>
+                        <th>Fecha de Compra</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-
-                        <td>1712345678</td>
-                        <td>Alexander Jácome</td>
-                        <td>2024-01-15</td>
-                        <td>$ 850.00</td>
+                        <td>ACT-001</td>
+                        <td>Máquina Ensambladora A</td>
+                        <td>2025-03-12</td>
                         <td class="acciones-tabla">
                             <a href="#modalDetalles" class="btn-tabla btn-detalles"><i class="fas fa-eye"></i> Ver detalles</a>
                             <a href="#modalActualizar" class="btn-tabla btn-actualizar"><i class="fas fa-sync-alt"></i> Actualizar</a>
                             <a href="#modalEliminar" class="btn-tabla btn-eliminar-tabla"><i class="fas fa-trash-alt"></i> Eliminar</a>
                         </td>
                     </tr>
-
                     <tr>
-                        <td>1712345678</td>
-                        <td>Juan Perez</td>
-                        <td>2024-01-15</td>
-                        <td>$ 850.00</td>
+                        <td>ACT-002</td>
+                        <td>Torno CNC</td>
+                        <td>2024-11-05</td>
                         <td class="acciones-tabla">
                             <a href="#modalDetalles" class="btn-tabla btn-detalles"><i class="fas fa-eye"></i> Ver detalles</a>
                             <a href="#modalActualizar" class="btn-tabla btn-actualizar"><i class="fas fa-sync-alt"></i> Actualizar</a>
@@ -109,27 +101,30 @@
         </section> 
         
         <footer class="item-footer">
-            <p>Nómina - Alexander Jácome | Quito, 2026</p>
+            <p>Mantenimiento - Henry Bolívar Borja Milán | 2026</p>
         </footer>
 
-    </div> <div id="modalInsertar" class="modal">
+    </div> 
+    
+    <!-- Modales -->
+    <div id="modalInsertar" class="modal">
         <div class="modal-body">
-            <h2>Confirmar Insercción</h2>
+            <h2>Confirmar Inserción</h2>
             <p>Se agregará a la base de datos. ¿Continuar?</p>
             <div class="modal-botones">
                 <a href="#" class="btn btn-eliminar">Cancelar</a>
-                <button type="submit" class="btn btn-insertar">Aceptar</button>
+                <button type="button" class="btn btn-insertar" onclick="window.location.href='#'">Aceptar</button>
             </div>
         </div>
     </div>
 
-    </div> <div id="modalEliminar" class="modal">
+    <div id="modalEliminar" class="modal">
         <div class="modal-body">
             <h2>Confirmar Eliminación</h2>
-            <p>¿Está seguro de que desea eliminar a este empleado? Esta acción no se puede deshacer.</p>
+            <p>¿Está seguro de que desea eliminar este activo? Esta acción no se puede deshacer.</p>
             <div class="modal-botones">
                 <a href="#" class="btn btn-actualizar">Cancelar</a>
-                <button type="submit" class="btn btn-eliminar">Aceptar</button>
+                <button type="button" class="btn btn-eliminar" onclick="window.location.href='#'">Aceptar</button>
             </div>
         </div>
     </div>
@@ -140,15 +135,15 @@
             <p>¿Desea guardar los cambios realizados en este registro?</p>
             <div class="modal-botones">
                 <a href="#" class="btn btn-actualizar">Cancelar</a>
-                <button type="submit" class="btn btn-insertar">Aceptar</button>
+                <button type="button" class="btn btn-insertar" onclick="window.location.href='#'">Aceptar</button>
             </div>
         </div>
     </div>
 
     <div id="modalDetalles" class="modal">
         <div class="modal-body">
-            <h2>Detalles del Empleado</h2>
-            <p>Cédula: 1712345678<br>Nombre: Alexander Jácome<br>Ingreso: 2024-01-15<br>Sueldo: $850.00</p>
+            <h2>Detalles del Activo</h2>
+            <p>Código: ACT-001<br>Nombre: Máquina Ensambladora A<br>Fecha de Compra: 2025-03-12</p>
             <div class="modal-botones">
                 <a href="#" class="btn btn-detalles">Cerrar</a>
             </div>
