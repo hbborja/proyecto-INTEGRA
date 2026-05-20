@@ -44,8 +44,8 @@
     <nav class="item-menu">
         <h3>Menú</h3>
         <ul class="menu-lista">
-            <li><a href="index.html" class="menu-link activo"><i class="fas fa-users"> </i>Autores</a></li>
-            <li><a href="libros.html" class="menu-link"> <i class="fas fa-book"> </i>Libros</a></li>
+            <li><a href="index.html" class="menu-link"><i class="fas fa-users"> </i>Autores</a></li>
+            <li><a href="libros.html" class="menu-link activo"> <i class="fas fa-book"> </i>Libros</a></li>
             <li><a href="prestamos.html" class="menu-link"><i class="fas fa-balance-scale"> </i>Préstamos</a></li>
             <li><a href="asientos.html" class="menu-link"><i class="fas fa-hand-holding-usd"> </i>Asientos Contables</a></li>
             <li><a href="reportes.html" class="menu-link"><i class="fas fa-calculator"> </i>Reporte Cruzado</a></li>
@@ -53,52 +53,64 @@
     </nav>
 
     <div class="item-main">
-        <h2>Gestión de Autores</h2>
-        <form id="formAutores" action="#modalInsertar">
+        <h2>Gestión de Libros</h2>
+        <form id="formLibros" action="#modalInsertar">
             <div class="mb-3">
-                <label for="codigoAutor" class="form-label">Código</label>
-                <input type="text" class="form-control" id="codigoAutor" placeholder="Código del autor" required>
+                <label for="isbn" class="form-label">ISBN</label>
+                <input type="text" class="form-control" id="isbn" placeholder="ISBN del libro" required>
             </div>
             <div class="mb-3">
-                <label for="nombreAutor" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombreAutor" placeholder="Nombre del autor" required>
+                <label for="titulo" class="form-label">Título</label>
+                <input type="text" class="form-control" id="titulo" placeholder="Título del libro" required>
             </div>
             <div class="mb-3">
-                <label for="apellidoAutor" class="form-label">Apellido</label>
-                <input type="text" class="form-control" id="apellidoAutor" placeholder="Apellido del autor" required>
+                <label for="autorLibro" class="form-label">Autor</label>
+                <select class="form-select" id="autorLibro" required>
+                    <option value="">Seleccione un autor</option>
+                    <option value="AUT-001">Gabriel García Márquez</option>
+                    <option value="AUT-002">Isabel Allende</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="valorPrestamo" class="form-label">Valor del Préstamo</label>
+                <input type="text" class="form-control" id="valorPrestamo" placeholder="$0.00" required>
             </div>
             <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-insertar">Guardar</button>
+                <button type="submit" class="btn btn-insertar"><i class="fas fa-save"></i> Guardar</button>
                 <a href="#modalLimpiar" class="btn-tabla btn-actualizar" style="text-decoration: none; display: inline-block; line-height: 24px;"><i class="fas fa-eraser"></i> Limpiar</a>
             </div>
         </form>
-        <hr>
         
-        <h3 class="mb-3">Lista de Autores</h3>
+        <hr class="my-4">
+        
+        <h3 class="mb-3">Lista de Libros</h3>
         <div class="table-responsive">
             <table class="table table-hover align-middle">
                 <thead>
                     <tr>
-                        <th>Código</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
+                        <th>ISBN</th>
+                        <th>Título</th>
+                        <th>Autor</th>
+                        <th>Valor Préstamo</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>AUT-001</td>
-                        <td>Gabriel</td>
-                        <td>García Márquez</td>
+                        <td>978-3-16-148410-0</td>
+                        <td>Cien Años de Soledad</td>
+                        <td>Gabriel García Márquez</td>
+                        <td>$5.00</td>
                         <td class="acciones-tabla">
                             <a href="#modalActualizar" class="btn-tabla btn-detalles"><i class="fas fa-sync-alt"></i> Editar</a>
                             <a href="#modalEliminar" class="btn-tabla btn-eliminar-tabla"><i class="fas fa-trash-alt"></i> Eliminar</a>
                         </td>
                     </tr>
                     <tr>
-                        <td>AUT-002</td>
-                        <td>Isabel</td>
-                        <td>Allende</td>
+                        <td>978-84-204-1234-5</td>
+                        <td>La Casa de los Espíritus</td>
+                        <td>Isabel Allende</td>
+                        <td>$3.50</td>
                         <td class="acciones-tabla">
                             <a href="#modalActualizar" class="btn-tabla btn-detalles"><i class="fas fa-sync-alt"></i> Editar</a>
                             <a href="#modalEliminar" class="btn-tabla btn-eliminar-tabla"><i class="fas fa-trash-alt"></i> Eliminar</a>
@@ -116,8 +128,8 @@
 
 <div id="modalInsertar" class="modal">
     <div class="modal-body">
-        <h2>Guardar Cambios</h2>
-        <p>¿Desea guardar los cambios realizados en este registro?</p>
+        <h2>Confirmar Inserción</h2>
+        <p>Se agregará el nuevo libro al catálogo de la biblioteca. ¿Continuar?</p>
         <div class="modal-botones">
             <a href="#" class="btn btn-actualizar">Cancelar</a>
             <button type="button" class="btn btn-insertar" onclick="window.location.href='#'">Aceptar</button>
@@ -128,27 +140,37 @@
 <div id="modalLimpiar" class="modal">
     <div class="modal-body">
         <h2>Confirmar Limpieza</h2>
-        <p>¿Está seguro de que desea limpiar todos los campos del formulario?</p>
+        <p>¿Está seguro de que desea vaciar todos los campos del formulario?</p>
         <div class="modal-botones">
             <a href="#" class="btn btn-actualizar">Cancelar</a>
-            <button type="reset" form="formAutores" class="btn btn-insertar" onclick="window.location.href='#'">Aceptar</button>
+            <button type="reset" form="formLibros" class="btn btn-insertar" onclick="window.location.href='#'">Aceptar</button>
         </div>
     </div>
 </div>
 
 <div id="modalActualizar" class="modal">
     <div class="modal-body" style="text-align: left;">
-        <h2 style="text-align: center; margin-bottom: 20px;">Editar Autor</h2>
+        <h2 style="text-align: center; margin-bottom: 20px;">Editar Libro</h2>
         <form>
             <div class="mb-3">
-                <label class="form-label" style="font-weight: bold; color: #333;">Nombre del Autor:</label>
-                <input type="text" class="form-control" value="Gabriel">
+                <label class="form-label" style="font-weight: bold; color: #333;">ISBN:</label>
+                <input type="text" class="form-control" value="978-3-16-148410-0">
             </div>
             <div class="mb-3">
-                <label class="form-label" style="font-weight: bold; color: #333;">Apellido del Autor:</label>
-                <input type="text" class="form-control" value="García Márquez">
+                <label class="form-label" style="font-weight: bold; color: #333;">Título del Libro:</label>
+                <input type="text" class="form-control" value="Cien Años de Soledad">
             </div>
-            
+            <div class="mb-3">
+                <label class="form-label" style="font-weight: bold; color: #333;">Autor:</label>
+                <select class="form-select">
+                    <option value="AUT-001" selected>Gabriel García Márquez</option>
+                    <option value="AUT-002">Isabel Allende</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" style="font-weight: bold; color: #333;">Valor del Préstamo:</label>
+                <input type="text" class="form-control" value="$5.00">
+            </div>
             <div class="modal-botones" style="margin-top: 25px; display: flex; justify-content: center; gap: 10px;">
                 <a href="#" class="btn btn-actualizar">Cancelar</a>
                 <a href="#" class="btn btn-insertar" style="text-decoration: none; line-height: 24px;">Guardar Cambios</a>
@@ -160,7 +182,7 @@
 <div id="modalEliminar" class="modal">
     <div class="modal-body">
         <h2>Confirmar Eliminación</h2>
-        <p>¿Está seguro de que desea eliminar este autor? Esta acción no se puede deshacer.</p>
+        <p>¿Está seguro de que desea eliminar este libro del sistema? Esta acción no se puede revertir.</p>
         <div class="modal-botones">
             <a href="#" class="btn btn-actualizar">Cancelar</a>
             <button type="button" class="btn btn-eliminar-tabla" onclick="window.location.href='#'">Aceptar</button>
