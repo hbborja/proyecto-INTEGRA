@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mantenimiento - Gestión</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="grid-container">   
+        <header class="item-header" style="justify-content: space-between; align-items: center; display: flex; flex-wrap: wrap; gap: 15px;">
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <img src="{{ url_for('static', filename='assets/img/modulo_mantenimiento.jpg') }}" class="logo-circular" alt="Logo Mantenimiento">
+                <h1 style="margin: 0; font-size: 1.8rem; color: rgb(28, 40, 131);">Sistema de Mantenimiento</h1>
+            </div>
+            
+            <nav style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                <div style="background: rgba(28, 40, 131, 0.05); padding: 5px; border-radius: 8px; display: flex; gap: 5px; border: 1px solid rgba(28, 40, 131, 0.1);">
+                    <a href="{{ url_for('pagina_nomina') }}" class="btn" style="background-color: transparent; color: rgb(28, 40, 131); font-weight: 600; padding: 8px 15px; transition: 0.3s;"><i class="fas fa-users"></i> Nómina</a>
+                    <a href="{{ url_for('pagina_contabilidad') }}" class="btn" style="background-color: transparent; color: rgb(28, 40, 131); font-weight: 600; padding: 8px 15px; transition: 0.3s;"><i class="fas fa-calculator"></i> Contabilidad</a>
+                    <a href="{{ url_for('pagina_mantenimiento') }}" class="btn" style="background-color: rgb(28, 40, 131); color: white; font-weight: 600; padding: 8px 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"><i class="fas fa-tools"></i> Mantenimiento</a>
+                    <a href="{{ url_for('pagina_biblioteca') }}" class="btn" style="background-color: transparent; color: rgb(28, 40, 131); font-weight: 600; padding: 8px 15px; transition: 0.3s;"><i class="fas fa-book"></i> Biblioteca</a>
+                </div>
+                <a href="{{ url_for('loguin') }}" class="btn btn-eliminar-tabla" style="padding: 10px 20px; border-radius: 8px; display: flex; align-items: center; gap: 8px;"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+            </nav>
+        </header>
+
+        <nav class="item-menu">
+            <h3>Navegación</h3>
+            <ul class="menu-lista">
+                <li><a href="{{ url_for('pagina_mantenimiento') }}" class="menu-link"><i class="fas fa-tools"></i> Actividades</a></li>
+                <li><a href="{{ url_for('pagina_activos') }}" class="menu-link"><i class="fas fa-box"></i> Activos</a></li>
+                <li><a href="{{ url_for('pagina_mantenimiento2') }}" class="menu-link activo"><i class="fas fa-clipboard-check"></i> Gestión de Mantenimiento</a></li>
+                <li><a href="{{ url_for('pagina_valores') }}" class="menu-link"><i class="fas fa-chart-bar"></i> Valores por Activo</a></li>
+                <li><a href="{{ url_for('pagina_reporte') }}" class="menu-link"><i class="fas fa-table"></i> Reporte Cruzado</a></li>
+            </ul>
+        </nav>
+
+        <main class="item-main" style="grid-column: span 5;">
+            <div class="form-box" style="max-width: 100%; background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #ddd;">
+                <h2>Cabecera de Mantenimiento</h2>
+                <form action="#modalInsertar">
+                    <div style="display: flex; gap: 15px;">
+                        <div style="flex: 1;">
+                            <label for="num_mantenimiento">Número:</label>
+                            <input type="text" id="num_mantenimiento" value="MAN-001" readonly style="background-color: #e9ecef;">
+                        </div>
+                        <div style="flex: 1;">
+                            <label for="fecha_mantenimiento">Fecha:</label>
+                            <input type="date" id="fecha_mantenimiento" class="select-estilizado" value="2026-05-17" required>
+                        </div>
+                        <div style="flex: 1;">
+                            <label for="responsable">Responsable:</label>
+                            <input type="text" id="responsable" placeholder="Ej. Juan Pérez" required>
+                        </div>
+                    </div>
+                    
+                    <div class="botones-crud" style="display: flex; gap: 10px; margin-top: 15px;">
+                        <button type="submit" class="btn btn-insertar" style="flex: 1;"><i class="fas fa-save"></i> Guardar Cabecera</button>
+                        <a href="#modalBuscar" class="btn btn-detalles" style="flex: 1; text-align: center;"><i class="fas fa-search"></i> Buscar Cabecera</a>
+                        <a href="#modalEliminar" class="btn btn-eliminar-tabla" style="flex: 1; text-align: center;"><i class="fas fa-trash-alt"></i> Eliminar Cabecera</a>
+                    </div>
+                </form>
+            </div>
+            
+            <hr style="margin: 25px 0; border: 0; border-top: 1px solid #ddd;">
+
+            <div class="form-box" style="max-width: 100%; background-color: #ffffff; padding: 5px 0; margin-bottom: 10px;">
+                <h2>Detalle de Mantenimiento</h2>
+                <form action="#modalInsertar">
+                    <div style="display: flex; gap: 15px; align-items: end;">
+                        <div style="flex: 2;">
+                            <label for="activo_sel">Activo:</label>
+                            <select id="activo_sel" class="select-estilizado" required>
+                                <option value="">Seleccione un activo...</option>
+                                <option value="ACT-001">Máquina Ensambladora A</option>
+                                <option value="ACT-002">Torno CNC</option>
+                            </select>
+                        </div>
+                        <div style="flex: 2;">
+                            <label for="actividad_sel">Actividad:</label>
+                            <select id="actividad_sel" class="select-estilizado" required>
+                                <option value="">Seleccione una actividad...</option>
+                                <option value="ACTV-001">Cambio de repuesto</option>
+                                <option value="ACTV-002">Limpieza general</option>
+                                <option value="ACTV-003">Calibración</option>
+                            </select>
+                        </div>
+                        <div style="flex: 1;">
+                            <label for="valor_mantenimiento">Valor ($):</label>
+                            <input type="number" id="valor_mantenimiento" class="select-estilizado" step="0.01" placeholder="Ej. 150.00" required>
+                        </div>
+                        <div style="flex: 1; padding-bottom: 10px;">
+                            <button type="submit" class="btn btn-insertar" style="width: 100%;"><i class="fas fa-plus"></i> Agregar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px; margin-bottom: 10px;">
+                <h3>Líneas de Detalle</h3>
+                <a href="#modalContable" class="btn btn-actualizar" style="background-color: #f39c12; color: white;"><i class="fas fa-exchange-alt"></i> Generar Comprobante Contable</a>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Activo</th>
+                        <th>Actividad</th>
+                        <th>Valor</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Máquina Ensambladora A</td>
+                        <td>Cambio de repuesto</td>
+                        <td>$ 150.00</td>
+                        <td class="acciones-tabla">
+                            <a href="#modalActualizar" class="btn-tabla btn-actualizar"><i class="fas fa-sync-alt"></i> Modificar</a>
+                            <a href="#modalEliminar" class="btn-tabla btn-eliminar-tabla"><i class="fas fa-trash-alt"></i> Quitar</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Torno CNC</td>
+                        <td>Limpieza general</td>
+                        <td>$ 45.50</td>
+                        <td class="acciones-tabla">
+                            <a href="#modalActualizar" class="btn-tabla btn-actualizar"><i class="fas fa-sync-alt"></i> Modificar</a>
+                            <a href="#modalEliminar" class="btn-tabla btn-eliminar-tabla"><i class="fas fa-trash-alt"></i> Quitar</a>
+                        </td>
+                    </tr>
+                </tbody> 
+                <tfoot>
+                    <tr style="background-color: #f8f9fa; font-size: 1.1em;">
+                        <td colspan="2" style="text-align: right; font-weight: bold; padding: 15px;">Total Mantenimiento:</td>
+                        <td colspan="2" style="font-weight: bold; color: #1c2883; padding: 15px;">$ 195.50</td>
+                    </tr>
+                </tfoot>       
+            </table>
+        </main> 
+        
+        <footer class="item-footer">
+            <p>Mantenimiento - Henry Bolívar Borja Milán | 2026</p>
+        </footer>
+    </div>
+
+    <!-- Modales -->
+    <div id="modalInsertar" class="modal">
+        <div class="modal-body">
+            <h2><i style="color: var(--color-insertar);"></i> Registro Exitoso</h2>
+            <p>Los datos han sido guardados correctamente.</p>
+            <div class="modal-botones">
+                <a href="#" class="btn btn-insertar" style="padding: 10px 30px;">Aceptar</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalBuscar" class="modal">
+        <div class="modal-body">
+            <h2><i style="color: var(--color-detalles);"></i> Buscar Cabecera</h2>
+            <p>Mantenimiento número <strong>MAN-001</strong> cargado exitosamente.</p>
+            <div class="modal-botones">
+                <a href="#" class="btn btn-detalles" style="padding: 10px 30px;">Cerrar</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalActualizar" class="modal">
+        <div class="modal-body">
+            <h2><i style="color: var(--color-actualizar);"></i> Guardar Cambios</h2>
+            <p>¿Desea modificar el valor y actualizar esta línea de mantenimiento?</p>
+            <div class="modal-botones">
+                <a href="#" class="btn btn-cancelar">Cancelar</a>
+                <button type="button" class="btn btn-actualizar-confirmar" onclick="window.location.href='#'">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalEliminar" class="modal">
+        <div class="modal-body">
+            <h2><i style="color: var(--color-eliminar-tabla);"></i> Confirmar Eliminación</h2>
+            <p>¿Está seguro de que desea remover este detalle? Esta acción no se puede deshacer.</p>
+            <div class="modal-botones">
+                <a href="#" class="btn btn-cancelar">Cancelar</a>
+                <button type="button" class="btn btn-eliminar-confirmar" onclick="window.location.href='#'">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalContable" class="modal">
+        <div class="modal-body">
+            <h2><i style="color: #f39c12;"></i> Integración Exitosa</h2>
+            <p>Se ha generado el comprobante automático en contabilidad:<br><strong>Asiento: Gasto de Mantenimiento vs Bancos</strong></p>
+            <div class="modal-botones">
+                <a href="#" class="btn btn-detalles" style="background-color: #f39c12; padding: 10px 30px;">Aceptar</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

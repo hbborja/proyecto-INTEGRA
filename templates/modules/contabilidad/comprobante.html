@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contabilidad - Comprobantes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="grid-container">   
+        <header class="item-header" style="justify-content: space-between; align-items: center; display: flex; flex-wrap: wrap; gap: 15px;">
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <img src="{{ url_for('static', filename='assets/img/modulo.png') }}"  class="logo-circular" alt="Logo Contabilidad">
+                <h1 style="margin: 0; font-size: 1.8rem; color: rgb(28, 40, 131);">Módulo Contabilidad</h1>
+            </div>
+            
+            <nav style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                <div style="background: rgba(28, 40, 131, 0.05); padding: 5px; border-radius: 8px; display: flex; gap: 5px; border: 1px solid rgba(28, 40, 131, 0.1);">
+                    <a href="{{ url_for('pagina_nomina') }}" class="btn-nav-global"><i class="fas fa-users"></i> Nómina</a>
+                    <a href="{{ url_for('pagina_contabilidad') }}" class="btn-nav-global activo"><i class="fas fa-calculator"></i> Contabilidad</a>
+                    <a href="{{ url_for('pagina_mantenimiento') }}" class="btn-nav-global"><i class="fas fa-tools"></i> Mantenimiento</a>
+                    <a href="{{ url_for('pagina_biblioteca') }}" class="btn-nav-global"><i class="fas fa-book"></i> Biblioteca</a>
+                </div>
+                <a href="{{ url_for('loguin') }}" class="btn btn-eliminar-tabla" style="padding: 10px 20px; border-radius: 8px; display: flex; align-items: center; gap: 8px;"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+            </nav>
+        </header>
+
+        <nav class="item-menu">
+            <h3>Navegación</h3>
+            <ul class="menu-lista">
+                <li>
+                    <a href="{{ url_for('pagina_contabilidad') }}" class="menu-link">
+                        <i class="fas fa-sitemap"></i>Tipo de cuenta
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('pagina_cuenta') }}" class="menu-link">
+                        <i class="fas fa-file-invoice"></i> Cuenta
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('pagina_comprobante') }}" class="menu-link activo">
+                       <i class="fas fa-receipt"></i> Comprobante de Contabilidad
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('pagina_balance') }}" class="menu-link">
+                        <i class="fas fa-balance-scale"></i> Balance General
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('pagina_resultados') }}" class="menu-link">
+                        <i class="fas fa-file-invoice-dollar"></i>  Estado de Resultados
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <main class="item-main">
+            <div class="form-box">
+                <h2>Generar Comprobante de Contabilidad</h2>
+                <form action="#modalInsertar" id="form-comprobante">
+                      <div class="seccion-comprobante">
+                         <h3><i class="fas fa-file-invoice"></i> Datos de la Cabecera</h3>
+                        <div class="grid-cabecera">
+                            <div>
+                                <label for="num_comprobante">Número Comprobante:</label>
+                                <input type="text" id="num_comprobante" placeholder="Ej: CC-001" required>
+                            </div>
+                            <div>
+                                <label for="fecha_comprobante">Fecha:</label>
+                                <input type="date" id="fecha_comprobante" required>
+                            </div>
+                         </div>
+                        <label for="observaciones">Observaciones / Concepto:</label>
+                        <input type="text" id="observaciones" placeholder="Ej: Registro de pago de arriendo mensual..." required>
+                    </div>
+
+                    <div class="seccion-comprobante">
+                        <h3><i class="fas fa-list"></i> Detalle del Asiento</h3>
+                        
+                        <div class="grid-detalle-inputs">
+                            <div class="col-cuenta">
+                                <label>Cuenta Contable:</label>
+                                <select class="select-contable" id="detalle_cuenta">
+                                    <option value="" disabled selected>Seleccione cuenta...</option>
+                                    <option value="110101">110101 - Caja Chica</option>
+                                    <option value="210101">210101 - Cuentas por Pagar</option>
+                                    <option value="510201">510201 - Gasto Arriendo</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>Debe ($):</label>
+                                <input type="number" id="detalle_debe" step="0.01" min="0" placeholder="0.00">
+                            </div>
+                            <div>
+                                <label>Haber ($):</label>
+                                <input type="number" id="detalle_haber" step="0.01" min="0" placeholder="0.00">
+                            </div>
+                        </div>
+                        
+                        <table class="tabla-asiento-temporal">
+                            <thead>
+                                <tr>
+                                    <th>Cuenta</th>
+                                    <th>Debe</th>
+                                    <th>Haber</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>510201 - Gasto Arriendo</td>
+                                    <td>$ 400.00</td>
+                                    <td>$ 0.00</td>
+                                </tr>
+                                <tr>
+                                    <td>110101 - Caja Chica</td>
+                                    <td>$ 0.00</td>
+                                    <td>$ 400.00</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr class="fila-totales">
+                                    <td>Total Cuadrado:</td>
+                                    <td id="total-debe">$ 400.00</td>
+                                    <td id="total-haber">$ 400.00</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <p class="alerta-cuadrado"><i class="fas fa-check-circle"></i> Asiento Cuadrado (Diferencia: $0.00)</p>
+                    </div>
+
+                    <div class="botones-crud">
+                        <button type="submit" class="btn btn-insertar">Registrar Comprobante</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+
+        <section class="item-tabla">
+             <div class="tabla-header-contabilidad">
+                  <h3>Historial de Comprobantes</h3>
+                  <div class="buscador-wrapper">
+                       <i class="fas fa-search buscador-icono"></i>
+                       <input type="text" placeholder="    Buscar comprobante..." class="input-busqueda">
+                  </div>
+             </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Número</th>
+                        <th>Fecha</th>
+                        <th>Observaciones / Concepto</th>
+                        <th>Total Cuadrado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CC-001</td>
+                        <td>2026-05-15</td>
+                        <td>Pago de arriendo de oficina local central</td>
+                        <td><strong>$ 400.00</strong></td>
+                        <td class="acciones-tabla">
+                            <a href="#modalDetalles" class="btn-tabla btn-detalles"><i class="fas fa-eye"></i> Ver asiento</a>
+                            <a href="#modalActualizar" class="btn-tabla btn-actualizar"><i class="fas fa-sync-alt"></i> Modificar</a>
+                            <a href="#modalEliminar" class="btn-tabla btn-eliminar-tabla"><i class="fas fa-trash-alt"></i> Anular</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>CC-002</td>
+                        <td>2026-05-17</td>
+                        <td>Reposición de fondo fijo de Caja Chica</td>
+                        <td><strong>$ 150.00</strong></td>
+                        <td class="acciones-tabla">
+                            <a href="#modalDetalles" class="btn-tabla btn-detalles"><i class="fas fa-eye"></i> Ver asiento</a>
+                            <a href="#modalActualizar" class="btn-tabla btn-actualizar"><i class="fas fa-sync-alt"></i> Modificar</a>
+                            <a href="#modalEliminar" class="btn-tabla btn-eliminar-tabla"><i class="fas fa-trash-alt"></i> Anular</a>
+                        </td>
+                    </tr>
+                </tbody>        
+            </table>
+        </section> 
+        
+        <footer class="item-footer">
+            <p>Contabilidad - Luis Pozo  | Quito, 2026</p>
+        </footer>
+
+    </div> 
+
+    <div id="modalEliminar" class="modal">
+        <div class="modal-body">
+            <h2>Anular Comprobante</h2>
+            <p>¿Está seguro de que desea anular este comprobante? Se generará un contra-asiento de reversión automático.</p>
+            <div class="modal-botones">
+                <a href="#" class="btn btn-cancelar">Cancelar</a>
+                <button type="submit" class="btn btn-eliminar-confirmar">Confirmar Anulación</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalActualizar" class="modal">
+        <div class="modal-body">
+            <h2>Modificar Comprobante</h2>
+            <p>¿Desea aplicar los cambios en la cabecera o las líneas del detalle seleccionado?</p>
+            <div class="modal-botones">
+                <a href="#" class="btn btn-cancelar">Cancelar</a>
+                <button type="submit" class="btn btn-actualizar-confirmar">Guardar Asiento</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalInsertar" class="modal">
+        <div class="modal-body">
+            <h2>Comprobante Validado</h2>
+            <p>El comprobante ha sido cuadrado exitosamente (Debe = Haber) y se ha guardado en el Libro Diario.</p>
+            <div class="modal-botones">
+                <a href="#" class="btn btn-actualizar-confirmar">Aceptar</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalDetalles" class="modal">
+        <div class="modal-body">
+            <h2>Asiento Contable Desglosado</h2>
+            <p><strong>Comprobante:</strong> CC-001 <br><strong>Concepto:</strong> Pago de arriendo de oficina</p>
+            <hr>
+            <p style="text-align: left; font-family: monospace;">
+                510201 Gasto Arriendo ----- $400.00 <br>
+                110101 Caja Chica ----------------- $400.00
+            </p>
+            <div class="modal-botones">
+                <a href="#" class="btn btn-actualizar-confirmar">Cerrar Visor</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

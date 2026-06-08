@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nómina - Gestión de Nómina</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="grid-container">   
+        <header class="item-header" style="justify-content: space-between; align-items: center; display: flex; flex-wrap: wrap; gap: 15px;">
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <img src="{{ url_for('static', filename='assets/img/logo_nomina.png') }}" class="logo-circular" alt="Logo Nómina">
+                <h1 style="margin: 0; font-size: 1.8rem; color: rgb(28, 40, 131);">Sistema de Gestión de Nómina</h1>
+            </div>
+            
+            <nav style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                <div style="background: rgba(28, 40, 131, 0.05); padding: 5px; border-radius: 8px; display: flex; gap: 5px; border: 1px solid rgba(28, 40, 131, 0.1);">
+                    <a href="{{ url_for('pagina_nomina') }}" class="btn-nav-global activo"><i class="fas fa-users"></i> Nómina</a>
+                    <a href="{{ url_for('pagina_contabilidad') }}" class="btn-nav-global"><i class="fas fa-calculator"></i> Contabilidad</a>
+                    <a href="{{ url_for('pagina_mantenimiento') }}" class="btn-nav-global"><i class="fas fa-tools"></i> Mantenimiento</a>
+                    <a href="{{ url_for('pagina_biblioteca') }}" class="btn-nav-global"><i class="fas fa-book"></i> Biblioteca</a>
+                </div>
+                <a href="{{ url_for('loguin') }}" class="btn btn-eliminar-tabla" style="padding: 10px 20px; border-radius: 8px; display: flex; align-items: center; gap: 8px;"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+            </nav>
+        </header>
+
+        <nav class="item-menu">
+            <h3>Navegación</h3>
+            <ul class="menu-lista">
+                <li><a href="{{ url_for('pagina_nomina') }}" class="menu-link"><i class="fas fa-users"></i> Empleados</a></li>
+                <li><a href="{{ url_for('pagina_motivos') }}" class="menu-link"><i class="fas fa-clipboard-list"></i> Motivos Ingreso/Egreso</a></li>
+                <li><a href="{{ url_for('pagina_gestion_nomina') }}" class="menu-link activo"><i class="fas fa-file-invoice-dollar"></i> Gestión de Nómina</a></li>
+                <li><a href="{{ url_for('pagina_reporte_valores') }}" class="menu-link"><i class="fas fa-hand-holding-usd"></i> Valores a Pagar</a></li>
+                <li><a href="{{ url_for('pagina_reporte_cruzado') }}" class="menu-link"><i class="fas fa-random"></i> Reporte Cruzado</a></li>
+            </ul>
+        </nav>
+
+        <main class="item-main" style="grid-column: span 5;">
+            <div class="form-box" style="max-width: 100%; background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #ddd;">
+                <h2>Cabecera de Nómina</h2>
+                <form action="#modalInsertar">
+                    <div style="display: flex; gap: 15px;">
+                        <div style="flex: 1;">
+                            <label for="num_nomina">Número:</label>
+                            <input type="text" id="num_nomina" value="NOM-001" readonly style="background-color: #e9ecef;">
+                        </div>
+                        <div style="flex: 1;">
+                            <label for="fecha_nomina">Fecha:</label>
+                            <input type="date" id="fecha_nomina" class="select-estilizado" value="2026-05-17" required>
+                        </div>
+                    </div>
+                    
+                    <label for="empleado_sel">Empleado:</label>
+                    <select id="empleado_sel" class="select-estilizado" required>
+                        <option value="1712345678">Alexander Jácome - 1712345678</option>
+                        <option value="1723456789">Carlos Barsallo - 1723456789</option>
+                        <option value="1734567890">Sofía Castro - 1734567890</option>
+                    </select>
+
+                    <div class="botones-crud" style="display: flex; gap: 10px; margin-top: 15px;">
+                        <button type="submit" class="btn btn-insertar" style="flex: 1;"><i class="fas fa-save"></i> Guardar Cabecera</button>
+                        <a href="#modalBuscar" class="btn btn-detalles" style="flex: 1; text-align: center;"><i class="fas fa-search"></i> Buscar Cabecera</a>
+                        <a href="#modalEliminar" class="btn btn-eliminar-tabla" style="flex: 1; text-align: center;"><i class="fas fa-trash-alt"></i> Eliminar Cabecera</a>
+                    </div>
+                </form>
+            </div>
+            
+            <hr style="margin: 25px 0; border: 0; border-top: 1px solid #ddd;">
+
+            <div class="form-box" style="max-width: 100%; background-color: #ffffff; padding: 5px 0; margin-bottom: 10px;">
+                <h2>Detalle de Nómina</h2>
+                <form action="#modalInsertar">
+                    <div style="display: flex; gap: 15px; align-items: end;">
+                        <div style="flex: 2;">
+                            <label for="motivo_sel">Motivo Ingreso/Egreso:</label>
+                            <select id="motivo_sel" class="select-estilizado" required>
+                                <option value="">Seleccione un motivo...</option>
+                                <option value="MOT-001">Sueldo Básico (Ingreso)</option>
+                                <option value="MOT-002">Horas Extras (Ingreso)</option>
+                                <option value="MOT-003">IESS (Egreso)</option>
+                            </select>
+                        </div>
+                        <div style="flex: 1;">
+                            <label for="valor_rubro">Valor ($):</label>
+                            <input type="number" id="valor_rubro" class="select-estilizado" step="0.01" placeholder="Ej. 50.00" required>
+                        </div>
+                        <div style="flex: 1; padding-bottom: 10px;">
+                            <button type="submit" class="btn btn-insertar" style="width: 100%;"><i class="fas fa-plus"></i> Agregar Línea</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px; margin-bottom: 10px;">
+                <h3>Líneas de Detalle Activas</h3>
+                <a href="#modalContable" class="btn btn-actualizar" style="background-color: #f39c12; color: white;"><i class="fas fa-exchange-alt"></i> Generar Asiento Contable</a>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Motivo</th>
+                        <th>Tipo</th>
+                        <th>Valor</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sueldo Básico</td>
+                        <td><span style="color: green; font-weight: bold;">Ingreso</span></td>
+                        <td>$ 1,200.00</td>
+                        <td class="acciones-tabla">
+                            <a href="#modalActualizar" class="btn-tabla btn-actualizar"><i class="fas fa-sync-alt"></i> Modificar</a>
+                            <a href="#modalEliminar" class="btn-tabla btn-eliminar-tabla"><i class="fas fa-trash-alt"></i> Quitar</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Horas Extras</td>
+                        <td><span style="color: green; font-weight: bold;">Ingreso</span></td>
+                        <td>$ 50.00</td>
+                        <td class="acciones-tabla">
+                            <a href="#modalActualizar" class="btn-tabla btn-actualizar"><i class="fas fa-sync-alt"></i> Modificar</a>
+                            <a href="#modalEliminar" class="btn-tabla btn-eliminar-tabla"><i class="fas fa-trash-alt"></i> Quitar</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>IESS (9.45%)</td>
+                        <td><span style="color: red; font-weight: bold;">Egreso</span></td>
+                        <td>$ 113.40</td>
+                        <td class="acciones-tabla">
+                            <a href="#modalActualizar" class="btn-tabla btn-actualizar"><i class="fas fa-sync-alt"></i> Modificar</a>
+                            <a href="#modalEliminar" class="btn-tabla btn-eliminar-tabla"><i class="fas fa-trash-alt"></i> Quitar</a>
+                        </td>
+                    </tr>
+                </tbody> 
+                <tfoot>
+                    <tr style="background-color: #f8f9fa; font-size: 1.1em;">
+                        <td colspan="2" style="text-align: right; font-weight: bold; padding: 15px;">Neto a Recibir:</td>
+                        <td colspan="2" style="font-weight: bold; color: #1c2883; padding: 15px;">$ 1,136.60</td>
+                    </tr>
+                </tfoot>       
+            </table>
+        </main> 
+        
+        <footer class="item-footer">
+            <p>Nómina - Alexander Jácome | Quito, 2026</p>
+        </footer>
+    </div>
+
+    <div id="modalInsertar" class="modal">
+        <div class="modal-body">
+            <h2><i style="color: var(--color-insertar);"></i> Registro Exitoso</h2>
+            <p>Los datos han sido guardados correctamente.</p>
+            <div class="modal-botones">
+                <a href="#" class="btn btn-insertar" style="padding: 10px 30px;">Aceptar</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalBuscar" class="modal">
+        <div class="modal-body">
+            <h2><i style="color: var(--color-detalles);"></i> Buscar Cabecera</h2>
+            <p>Nómina número <strong>NOM-001</strong> cargada exitosamente desde el sistema.</p>
+            <div class="modal-botones">
+                <a href="#" class="btn btn-detalles" style="padding: 10px 30px;">Cerrar</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalActualizar" class="modal">
+        <div class="modal-body">
+            <h2><i style="color: var(--color-actualizar);"></i> Guardar Cambios</h2>
+            <p>¿Desea modificar el valor y actualizar esta línea del detalle de nómina?</p>
+            <div class="modal-botones">
+                <a href="#" class="btn btn-cancelar">Cancelar</a>
+                <button type="submit" class="btn btn-actualizar-confirmar">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalEliminar" class="modal">
+        <div class="modal-body">
+            <h2><i style="color: var(--color-eliminar-tabla);"></i> Confirmar Eliminación</h2>
+            <p>¿Está seguro de que desea remover este rubro del rol de pagos? Esta acción no se puede deshacer.</p>
+            <div class="modal-botones">
+                <a href="#" class="btn btn-cancelar">Cancelar</a>
+                <button type="submit" class="btn btn-eliminar-confirmar">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalContable" class="modal">
+        <div class="modal-body">
+            <h2><i style="color: #f39c12;"></i> Integración Exitosa</h2>
+            <p>Se ha generado y enviado el comprobante contable automático hacia el módulo de <strong>Contabilidad</strong> (Gasto Nómina vs Bancos).</p>
+            <div class="modal-botones">
+                <a href="#" class="btn btn-detalles" style="background-color: #f39c12; padding: 10px 30px;">Aceptar</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
