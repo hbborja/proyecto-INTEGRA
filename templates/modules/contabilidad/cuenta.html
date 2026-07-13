@@ -60,15 +60,15 @@
         <main class="item-main">
             <div class="form-box">
                 <h2>Registro de Cuenta Contable</h2>
-                <form action="#modalInsertar">
+                <form action="/insertar" method="POST">
                     <label for="codigo_cuenta">Código de Cuenta:</label>
-                    <input type="text" id="codigo_cuenta" maxlength="6" placeholder="Ej: 110101" required pattern="\d{6}" title="Debe ingresar 6 números exactos">
+                    <input type="text" name="codigo_cuenta" maxlength="6" placeholder="Ej: 110101" required pattern="\d{6}" title="Debe ingresar 6 números exactos">
 
                     <label for="nombre_cuenta">Nombre de la Cuenta:</label>
-                    <input type="text" id="nombre_cuenta" placeholder="Ej: Caja General, Bancos, Proveedores..." required>
+                    <input type="text" name="nombre_cuenta" placeholder="Ej: Caja General, Bancos, Proveedores..." required>
 
                     <label for="tipo_cuenta_padre">Tipo de Cuenta:</label>
-                    <select id="tipo_cuenta_padre" class="select-estilizado" required>
+                    <select name="tipo_cuenta_padre" class="select-estilizado" required>
                         <option value="" disabled selected>Seleccione el tipo al que pertenece...</option>
                         <option value="Activo">Activo</option>
                         <option value="Pasivo">Pasivo</option>
@@ -92,40 +92,59 @@
                        <input type="text" placeholder="    Buscar cuenta..." class="input-busqueda">
                   </div>
              </div>
-            
-            <table>
-                <thead>
-                    <tr>
-                        <th>Código</th>
-                        <th>Nombre</th>
-                        <th>Tipo de Cuenta</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>110101</td>
-                        <td>Caja Chica</td>
-                        <td>Activo</td>
-                        <td class="acciones-tabla">
-                            <a href="#modalDetalles" class="btn-tabla btn-detalles"><i class="fas fa-eye"></i> Ver detalles</a>
-                            <a href="#modalActualizar" class="btn-tabla btn-actualizar"><i class="fas fa-sync-alt"></i> Actualizar</a>
-                            <a href="#modalEliminar" class="btn-tabla btn-eliminar-tabla"><i class="fas fa-trash-alt"></i> Eliminar</a>
-                        </td>
-                    </tr>
+               <table>
+          <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Tipo de Cuenta</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+        <tbody>
+         {% for cuenta in cuentas %}
+            <tr>
+                <td>{{ cuenta[0] }}</td>
+                <td>{{ cuenta[1] }}</td>
+                <td>{{ cuenta[2] }}</td>
+                <td class="acciones-tabla">
+                
+                 <a href="javascript:void(0);" 
+                    style="display: inline-block !important; background-color: #17a2b8 !important; color: white !important; padding: 8px 16px !important; border-radius: 6px !important; text-decoration: none !important; font-weight: bold !important; font-size: 14px !important; text-align: center !important; border: 1px solid #138496 !important; box-shadow: 0px 2px 4px rgba(0,0,0,0.15) !important; opacity: 1 !important; margin: 2px !important; font-family: sans-serif !important;"
+                    data-codigo="{{ cuenta[0] }}"
+                    data-nombre="{{ cuenta[1] }}"
+                    data-tipo="{{ cuenta[2] }}"
+                    onclick="abrirModalDetalles(this)">
+                        <i class="fas fa-eye"></i> Ver detalles
+                </a>
 
-                    <tr>
-                        <td>210101</td>
-                        <td>Cuentas por Pagar Locales</td>
-                        <td>Pasivo</td>
-                        <td class="acciones-tabla">
-                            <a href="#modalDetalles" class="btn-tabla btn-detalles"><i class="fas fa-eye"></i> Ver detalles</a>
-                            <a href="#modalActualizar" class="btn-tabla btn-actualizar"><i class="fas fa-sync-alt"></i> Actualizar</a>
-                            <a href="#modalEliminar" class="btn-tabla btn-eliminar-tabla"><i class="fas fa-trash-alt"></i> Eliminar</a>
-                        </td>
-                    </tr>
-                </tbody>        
-            </table>
+                <a href="javascript:void(0);" 
+                    class="btn btn-actualizar" data-codigo="{{ cuenta[0] }}"
+                    data-nombre="{{ cuenta[1] }}"
+                    data-tipo="{{ cuenta[2] }}"
+                    onclick="abrirModalEditar(this)">
+                        <i class="fas fa-edit"></i> Editar
+               </a>
+
+               
+                <a href="javascript:void(0);" 
+                    class="btn-tabla btn-eliminar-tabla"
+                    data-codigo="{{ cuenta[0] }}"
+                    data-nombre="{{ cuenta[1] }}"
+                    onclick="abrirModalEliminar(this)">
+                    <i class="fas fa-trash-alt"></i> Eliminar
+                </a>
+
+                </td>
+            </tr>
+         {% else %}
+             <tr>
+                <td colspan="4" style="text-align: center;">No hay cuentas contables registradas.</td>
+             </tr>
+          {% endfor %}
+        </tbody>        
+    </table>
+           
         </section> 
         
         <footer class="item-footer">
@@ -134,46 +153,219 @@
 
     </div> 
 
-    <div id="modalEliminar" class="modal">
-        <div class="modal-body">
-            <h2>Confirmar Eliminación</h2>
-            <p>¿Está seguro de que desea eliminar esta cuenta contable? Esta acción no se puede deshacer y puede afectar los asientos históricos.</p>
+    <div id="modalEliminar" class="modal" style="display: none;">
+    <div class="modal-body">
+        <h2>Confirmar Eliminación</h2>
+        
+        <form action="{{ url_for('eliminar_cuenta') }}" method="POST">
+            
+            <input type="hidden" id="eliminar_codigo" name="codigo_cuenta">
+
+            <p>
+                ¿Está seguro de que desea eliminar la cuenta: <strong id="eliminar_nombre" style="color: red;"></strong>?
+                <br><br>
+                Esta acción no se puede deshacer y puede afectar los asientos históricos.
+            </p>
+
             <div class="modal-botones">
-                <a href="#" class="btn btn-cancelar">Cancelar</a>
+                <button type="button" class="btn btn-cancelar" onclick="cerrarModalEliminar()">Cancelar</button>
                 <button type="submit" class="btn btn-eliminar-confirmar">Aceptar</button>
             </div>
-        </div>
+        </form>
     </div>
+</div>
 
-    <div id="modalActualizar" class="modal">
-        <div class="modal-body">
-            <h2>Guardar Cambios</h2>
-            <p>¿Desea guardar los cambios realizados en esta cuenta?</p>
-            <div class="modal-botones">
-                <a href="#" class="btn btn-cancelar">Cancelar</a>
-                <button type="submit" class="btn btn-actualizar-confirmar">Aceptar</button>
-            </div>
-        </div>
-    </div>
+{% if registro_eliminado %}
+  
+  <div style="position: fixed !important; top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important; background-color: rgba(0, 0, 0, 0.7) !important; display: flex !important; justify-content: center !important; align-items: center !important; z-index: 999999 !important;">
+      
+      <div style="background: #ffffff !important; padding: 40px !important; border-radius: 12px !important; text-align: center !important; max-width: 450px !important; width: 90% !important; box-shadow: 0px 10px 30px rgba(0,0,0,0.5) !important;">
+          
+          <div style="font-size: 50px !important; color: #dc3545 !important; margin-bottom: 15px !important;">
+              <i class="fas fa-trash-alt"></i>
+          </div>
 
-    <div id="modalInsertar" class="modal">
-        <div class="modal-body">
-            <h2>Registro Exitoso</h2>
-            <p>La cuenta contable ha sido estructurada y guardada correctamente en el sistema.</p>
-            <div class="modal-botones">
-                <a href="#" class="btn btn-actualizar-confirmar">Aceptar</a>
-            </div>
-        </div>
-    </div>
+          <h2 style="color: #dc3545 !important; margin-top: 0 !important; margin-bottom: 15px !important; font-family: sans-serif !important;">
+              Eliminación Exitosa
+          </h2>
+          
+          <p style="color: #333333 !important; font-size: 16px !important; margin-bottom: 25px !important; font-family: sans-serif !important;">
+              La cuenta contable ha sido eliminada permanentemente de la base de datos de Oracle.
+          </p>
+          
+          <a href="{{ url_for('mostrar_cuentas') }}" 
+             style="display: inline-block !important; padding: 12px 30px !important; background-color: #dc3545 !important; color: #ffffff !important; text-decoration: none !important; border-radius: 6px !important; font-weight: bold !important; font-family: sans-serif !important;">
+              Aceptar
+          </a>
+          
+      </div>
+  </div>
 
-    <div id="modalDetalles" class="modal">
-        <div class="modal-body">
-            <h2>Detalles de la Cuenta</h2>
-            <p>Código: 110101<br>Nombre: Caja Chica<br>Tipo de Cuenta: Activo</p>
-            <div class="modal-botones">
-                <a href="#" class="btn btn-actualizar-confirmar">Cerrar</a>
+{% endif %}
+
+    <!-- El modal ahora envuelve a un formulario que apunta a la ruta /actualizar -->
+<div id="modalEditar" class="modal" style="display: none;">
+    <div class="modal-body">
+        <h2>Modificar Cuenta Contable</h2>
+        
+        <form action="{{ url_for('actualizar') }}" method="POST">
+            <input type="hidden" id="editar_codigo" name="codigo_cuenta">
+
+            <div class="grupo-formulario">
+                <label>Nombre de la Cuenta:</label>
+                <input type="text" id="editar_nombre" name="nombre_cuenta" required>
             </div>
+
+            <div class="grupo-formulario">
+                <label>Tipo de Cuenta Padre:</label>
+                <input type="text" id="editar_tipo" name="tipo_cuenta_padre" required>
+            </div>
+
+            <div class="modal-botones">
+                <button type="button" class="btn btn-cancelar" onclick="cerrarModalEditar()">Cancelar</button>
+                <button type="submit" class="btn btn-actualizar-confirmar">Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% if registro_actualizado %}
+  
+  <div style="position: fixed !important; top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important; background-color: rgba(0, 0, 0, 0.7) !important; display: flex !important; justify-content: center !important; align-items: center !important; z-index: 999999 !important;">
+      
+      <div style="background: #ffffff !important; padding: 40px !important; border-radius: 12px !important; text-align: center !important; max-width: 450px !important; width: 90% !important; box-shadow: 0px 10px 30px rgba(0,0,0,0.5) !important;">
+          
+          <div style="font-size: 50px !important; color: #007bff !important; margin-bottom: 15px !important;">
+              <i class="fas fa-sync-alt"></i>
+          </div>
+
+          <h2 style="color: #007bff !important; margin-top: 0 !important; margin-bottom: 15px !important; font-family: sans-serif !important;">
+              Actualización Exitosa
+          </h2>
+          
+          <p style="color: #333333 !important; font-size: 16px !important; margin-bottom: 25px !important; font-family: sans-serif !important;">
+              Los cambios de la cuenta contable han sido modificados y guardados con éxito en Oracle.
+          </p>
+          
+          <a href="{{ url_for('mostrar_cuentas') }}" 
+             style="display: inline-block !important; padding: 12px 30px !important; background-color: #007bff !important; color: #ffffff !important; text-decoration: none !important; border-radius: 6px !important; font-weight: bold !important; font-family: sans-serif !important;">
+              Aceptar
+          </a>
+          
+      </div>
+  </div>
+
+{% endif %}
+
+ {% if registro_exitoso %}
+  
+  <div style="position: fixed !important; top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important; background-color: rgba(0, 0, 0, 0.7) !important; display: flex !important; justify-content: center !important; align-items: center !important; z-index: 999999 !important;">
+      
+      <div style="background: #ffffff !important; padding: 40px !important; border-radius: 12px !important; text-align: center !important; max-width: 450px !important; width: 90% !important; box-shadow: 0px 10px 30px rgba(0,0,0,0.5) !important;">
+          
+          <div style="font-size: 50px !important; color: #28a745 !important; margin-bottom: 15px !important;">
+              <i class="fas fa-check-circle"></i>
+          </div>
+
+          <h2 style="color: #28a745 !important; margin-top: 0 !important; margin-bottom: 15px !important; font-family: sans-serif !important;">
+              ¡Registro Exitoso!
+          </h2>
+          
+          <p style="color: #333333 !important; font-size: 16px !important; margin-bottom: 25px !important; font-family: sans-serif !important;">
+              La cuenta contable ha sido estructurada y guardada correctamente en el sistema de Oracle.
+          </p>
+          
+          <a href="{{ url_for('mostrar_cuentas') }}" 
+             style="display: inline-block !important; padding: 12px 30px !important; background-color: #28a745 !important; color: #ffffff !important; text-decoration: none !important; border-radius: 6px !important; font-weight: bold !important; font-family: sans-serif !important;">
+              Aceptar
+          </a>
+          
+      </div>
+  </div>
+
+{% endif %}
+
+    <div id="modalDetalles" style="display: none; position: fixed !important; top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important; background-color: rgba(0, 0, 0, 0.6) !important; justify-content: center !important; align-items: center !important; z-index: 999999 !important;">
+    
+    <div style="background: #ffffff !important; padding: 35px !important; border-radius: 10px !important; max-width: 500px !important; width: 90% !important; box-shadow: 0px 10px 30px rgba(0,0,0,0.4) !important; font-family: sans-serif !important;">
+        
+        <h2 style="color: #17a2b8 !important; margin-top: 0 !important; margin-bottom: 20px !important; border-bottom: 2px solid #17a2b8 !important; padding-bottom: 10px !important;">
+            <i class="fas fa-info-circle"></i> Detalles de la Cuenta
+        </h2>
+        
+        <div style="text-align: left !important; font-size: 16px !important; line-height: 2 !important; color: #333333 !important;">
+            <p><strong>Código de Cuenta:</strong> <span id="detalles_codigo" style="color: #555;"></span></p>
+            <p><strong>Nombre de Cuenta:</strong> <span id="detalles_nombre" style="color: #555;"></span></p>
+            <p><strong>Tipo Cuenta Padre:</strong> <span id="detalles_tipo" style="color: #555;"></span></p>
+        </div>
+        
+        <div style="margin-top: 25px !important; text-align: right !important;">
+            <button type="button" onclick="cerrarModalDetalles()" 
+                    style="padding: 10px 25px !important; background-color: #6c757d !important; color: white !important; border: none !important; border-radius: 5px !important; font-weight: bold !important; cursor: pointer !important;">
+                Cerrar
+            </button>
         </div>
     </div>
+</div>
+
+    <script>
+   function abrirModalEliminar(enlace) {
+        // 1. Extrae el código y nombre guardados en el enlace de la tabla
+        const codigo = enlace.getAttribute('data-codigo');
+        const nombre = enlace.getAttribute('data-nombre');
+
+        // 2. Los inyecta dentro del modal (uno en el input oculto y otro en el texto)
+        document.getElementById('eliminar_codigo').value = codigo;
+        document.getElementById('eliminar_nombre').innerText = nombre;
+
+        // 3. Muestra el modal en pantalla
+        document.getElementById('modalEliminar').style.display = 'block'; // o 'flex' según tus estilos
+}
+
+    function cerrarModalEliminar() {
+            // Oculta el modal si le dan a Cancelar
+            document.getElementById('modalEliminar').style.display = 'none';
+    }
+    function abrirModalEditar(enlace) {
+        // 1. Extrae los datos del botón de la tabla
+        const codigo = enlace.getAttribute('data-codigo');
+        const nombre = enlace.getAttribute('data-nombre');
+        const tipo = enlace.getAttribute('data-tipo');
+
+        // 2. Los inyecta en los inputs correspondientes del modal
+        document.getElementById('editar_codigo').value = codigo;
+        document.getElementById('editar_nombre').value = nombre;
+        document.getElementById('editar_tipo').value = tipo;
+
+        // 3. Muestra el modal en pantalla (ajusta a 'flex' si usas flexbox en tu CSS)
+        document.getElementById('modalEditar').style.display = 'block';
+}
+
+        function cerrarModalEditar() {
+            // Oculta el modal al dar clic en Cancelar
+            document.getElementById('modalEditar').style.display = 'none';
+        }
+
+       function abrirModalDetalles(enlace) {
+            // 1. Extrae los datos que vienen del botón de la tabla
+            const codigo = enlace.getAttribute('data-codigo');
+            const nombre = enlace.getAttribute('data-nombre');
+            const tipo = enlace.getAttribute('data-tipo');
+
+            // 2. Inyecta los datos dentro de las etiquetas <span> del modal
+            document.getElementById('detalles_codigo').innerText = codigo;
+            document.getElementById('detalles_nombre').innerText = nombre;
+            document.getElementById('detalles_tipo').innerText = tipo;
+
+            // 3. Muestra el modal usando flex para centrarlo perfectamente
+            document.getElementById('modalDetalles').style.display = 'flex';
+}
+
+        function cerrarModalDetalles() {
+            // Oculta el modal de detalles
+            document.getElementById('modalDetalles').style.display = 'none';
+        } 
+
+</script>
 </body>
 </html>
