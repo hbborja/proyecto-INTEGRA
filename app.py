@@ -103,11 +103,5 @@ def pagina_prestamos():
 def pagina_reportes():
     return render_template("modules/biblioteca/reportes.html")
 
-
-
-
-
-
-
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=5000)
